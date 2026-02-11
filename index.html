@@ -69,8 +69,8 @@
     <button id="no">No</button>
 
     <div id="meme">
-      <img src="https://www.pinterest.com/artlimbo/reaction-images/" alt="Cat meme">
-      <p>Stop playing games with me please, iv spent alot of time on this</p>
+      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzg0cnd5Nm50eWxiZXVsYmdodmJkdGd5NTY5MHR1cm5hY2lraTJlOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/901mxGLGQN2PyCQpoc/giphy.gif" alt="Cat meme">
+      <p>Stop playing games with me please, I've spent alot of time on this</p>
     </div>
   </div>
 
@@ -86,10 +86,10 @@
       noAttempts++;
 
       // Grow YES button
-      yesScale += 0.2;
+      yesScale += 0.4;
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      if (noAttempts >= 2) {
+      if (noAttempts >= 3) {
         meme.style.display = "block";
       }
 
@@ -104,7 +104,7 @@
     noBtn.addEventListener("click", avoidNo);
 
     yesBtn.addEventListener("click", () => {
-      alert("YAY 💖 You’re my Valentine!");
+      alert("YAY 💖 You’re my Valentine! Hope you like the gift! a great day beautiful");
     });
   </script>
 
