@@ -18,6 +18,7 @@
     .container {
       text-align: center;
       position: relative;
+      z-index: 2;
     }
 
     h1 {
@@ -45,32 +46,78 @@
       position: absolute;
     }
 
-    #meme {
+    #meme, #yesResult {
       display: none;
       margin-top: 20px;
     }
 
-    #meme img {
+    img {
       max-width: 300px;
       border-radius: 15px;
     }
 
-    #meme p {
+    p {
       font-size: 1.5rem;
       margin-top: 10px;
+    }
+
+    /* HEARTS */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    /* CONFETTI */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      opacity: 0.8;
+      animation: fall 3s linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>Will you be my Valentine Berniley?</h1>
+    <h1>Will you be my Valentine?</h1>
+
     <button id="yes">Yes</button>
     <button id="no">No</button>
 
+    <!-- NO meme -->
     <div id="meme">
-      <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzg0cnd5Nm50eWxiZXVsYmdodmJkdGd5NTY5MHR1cm5hY2lraTJlOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/901mxGLGQN2PyCQpoc/giphy.gif" alt="Cat meme">
-      <p>Stop playing games with me please, I've spent alot of time on this</p>
+      <img src="https://i.imgur.com/6XbGQ9R.jpeg" alt="Cat meme">
+      <p>Stop playing games with me</p>
+    </div>
+
+    <!-- YES result -->
+    <div id="yesResult">
+      <img src="https://i.imgur.com/4AiXzf8.jpeg" alt="Happy image">
+      <p>Thank you, I hope you have a wonderful day 💖</p>
     </div>
   </div>
 
@@ -78,6 +125,7 @@
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const meme = document.getElementById("meme");
+    const yesResult = document.getElementById("yesResult");
 
     let noAttempts = 0;
     let yesScale = 1;
@@ -86,10 +134,10 @@
       noAttempts++;
 
       // Grow YES button
-      yesScale += 0.4;
+      yesScale += 0.2;
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      if (noAttempts >= 3) {
+      if (noAttempts >= 2) {
         meme.style.display = "block";
       }
 
@@ -104,8 +152,42 @@
     noBtn.addEventListener("click", avoidNo);
 
     yesBtn.addEventListener("click", () => {
-      alert("YAY 💖 You’re my Valentine! Hope you like the gift! a great day beautiful");
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      meme.style.display = "none";
+      yesResult.style.display = "block";
+
+      launchConfetti();
+      launchHearts();
     });
+
+    function launchHearts() {
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+
+    function launchConfetti() {
+      const colors = ["#ff4d6d", "#ffffff", "#ffb3c1"];
+
+      for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 4000);
+      }
+    }
   </script>
 
 </body>
